@@ -9,7 +9,6 @@ extension.xml
 lazy.xml
 library.cm
 package.cm
-bmeval/test.cm
 docs/arrays.docs.cm
 docs/cast.docs.cm
 docs/class.docs.cm
