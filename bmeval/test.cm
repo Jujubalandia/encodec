@@ -36,6 +36,218 @@
 
 package cm.encodec.bmeval;
 
+use cm: basic, io, win, geometry.advanced;
+
 {  
     pln("BMEval test started 1");
+
+    ///Declarative Statements
+
+    // Variable declaration without initial value.
+    double noValueYet;
+
+    // Variable declaration with initial value.
+    double initValue = 1.22674;
+
+    // Constant declaration statement.
+    const double pi = 3.141592654;
+
+
+    /// Expression Statements
+
+    // Assignment. 
+    //area = 3.14 * (radius * radius);
+
+    // Method invocation.
+    // snapperName.invalidate;
+    // snapperName.invalidate();
+
+    // New object creation and assignment (Only for non-primitive data types).
+    // buf = new StrBuf();
+    // buf = StrBuf();
+    // init buf();
+    // init buf(64);
+
+    // if (!buf) init buf();
+    // init? buf();
+
+    /* 
+    if (condition) {
+        consequence(s)
+    } else if (condition) {
+        consequence(s)
+    } else {
+        consequence(s)
+    }
+    */
+
+    if (initValue > 1.0) {
+        pln("initValue is greater than 1.0");
+    } else if (initValue < 1.0) {
+        pln("initValue is less than 1.0");
+    } else {
+        pln("initValue is equal to 1.0");
+    }
+    // Switch statement.
+    /* 
+    switch (expression) {
+    case (value1) : {
+        consequence(s)
+    }
+    case (value2) : {
+        consequence(s)
+    }
+    default : {
+        consequence(s)
+    }
+    */
+
+    // example of switch statement with double values
+    // Note: Switch statements in CM do not support floating-point values directly.
+    switch (1) {
+        case (1) : {
+            pln("initValue is exactly 1.0");
+        }
+        case (2) : {
+            pln("initValue is exactly 2.0");
+        }
+        default : {
+            pln("initValue is neither 1.0 nor 2.0");
+        }
+    }
+
+    // While loop.
+    /*    while (condition) {
+        consequence(s)
+    }
+    */    
+    int i = 0;
+    while (i < 5) {
+        pln("value is: ######## " #i); // Fix Print the value of i 
+        i++;
+    }
+
+    // Do-while loop.
+    /*  do {
+        consequence(s)
+    } while (condition);
+    */      
+    i = 0;
+    do {  
+        pln("value is: %%%%%% " #i); // Print the value of i
+        i++;
+    } while (i < 5);
+
+    // For loop.
+    /*  for (init; condition; increment) {  
+        consequence(s)
+    }
+    */      
+    for (j in 1..6) {
+        pln("value is: &&&&&& " #j); // Print the value of j
+    }
+
+    for (x in 1..3) {
+        pln("value is: ****** " #x);
+        break;
+    }
+
+    for (x in 1..3) {
+        if (x == 2) continue;
+        pln(x);
+    }
+
+
+    /*
+    try {
+        consequence(s)
+    } catch (Exception e) {
+        exception handling
+    } finally {
+        cleanup
+    }
+    */
+
+    try {
+        pln("Trying to execute code that may throw an exception");
+        // Simulate an operation that could fail
+        if (initValue < 0) {
+            //throw new Exception();
+            // throw Exception("Insert exception message here"); // is in the documentation
+        }
+    } catch (Exception e) {
+        pln(e);
+    } finally {
+        pln("This block always executes, regardless of exceptions");
+    }
+
+    double a1 = 12 mm;
+    double a2 = 12 cm;
+    double a3 = 12 dm;
+    double a4 = 12 m;
+    double a5 = 12 inch;
+    double a6 = 12 feet;
+
+    //angle a7 = 30deg;
+    //point p1 = (1, 2, 3.14);
+    //point2D p2 = (1, 3.14);
+    //pointI p3 = (1, 2);      
+
+    //private int globalInt = 24 : package readable;
+    //private double globalDouble = 3.14 : package readable;
+    //private string globalString = "Hello, World!" : package readable;
+    //private bool globalBool = true : package readable;
+
+    pln(#season.fall in season);
+    pln(#3 in season);
+    pln(#4 in season);
+
+    str stringEx = "Foobar";
+    pln(#"Foo" in stringEx);
+    pln(#"foo" in stringEx);
+    pln(#"bear" in stringEx);
+    pln(#'o' in stringEx);
+
+    Object v = Double(1.0);
+    if (v as Double) {
+        v = 2.0;
+        pln(#v);
+    }
+    pln(#v);
+    
+    pln("\n BMEval test finished");
+
+
+
 }
+
+public class AnimateCamera3D  {
+        private bool animationEnable : public readable;
+}
+
+private enum season : field access {
+        winter;
+        spring;
+        summer;
+        fall;
+}
+
+public enum liOpenGLMode using byte : field access {
+    liOpenGLNone = 0;
+    liOpenGLLowDetail = 1;
+    liOpenGLMediumDetail = 2;
+    liOpenGLHighDetail = 3;
+}
+
+public class TestClass {
+    public constructor() { }
+}
+
+public class SubClass extends TestClass { }
+
+{
+    SubClass cls();
+    pln(cls.class);
+    pln(cls in TestClass);
+}
+
