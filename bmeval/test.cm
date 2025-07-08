@@ -36,7 +36,7 @@
 
 package cm.encodec.bmeval;
 
-use cm: basic, io, win, geometry.advanced;
+//use cm: basic, io, win, geometry.advanced;
 
 {  
     pln("BMEval test started 1");
@@ -214,12 +214,273 @@ use cm: basic, io, win, geometry.advanced;
         pln(#v);
     }
     pln(#v);
+
+
+    Object boolObject = false;
+    ?bool boolPrim = boolObject;
     
+    if (boolPrim) {
+        pln("boolPrim evaluated as true");
+    } else {
+        pln("boolPrim evaluated as false");
+    }
+    
+    if (?bool boolConvert = boolObject) {
+        pln("Successfully converted boolConvert");
+    } else {
+        pln("Failed converting into boolConvert");
+    }
+    
+    ?int boolInt = boolObject;
+    pln(boolInt);
+    
+    if (?int boolIntCast = boolObject) {
+        pln("Successfully converted boolIntCast");
+    } else {
+        pln("Failed converting into boolIntCast");
+    }
+
+    Double[] myDoubles = [Double: 3.0, 2.0, 1.0];
+    Object[] myObjects = myDoubles.:Object[];
+    
+    Object[] myObjectsA = [Object: Double(3.0), Int(2), Bool(true)];
+    Number[] myNumbers = myObjectsA.copy(Number[]);
+/*
+    Function functionObject = function normalFunction;
+
+    if (function(int, str):int backToNormal = functionObject.:function(int, str):int) {
+        pln(backToNormal(5, ""));
+    }
+
+    // Declaration of object variable `guyOne` + construction of a new
+    // instance of the ObjGuy class and assignment of the latter's pointer
+    // to the former
+    ObjGuy guyOne();
+
+    // ...same for 'guyTwo'
+    ObjGuy guyTwo();
+
+    // Declaration of object variable `dupGuy` + assignment of the value of
+    // `guyOne` to it
+    ObjGuy dupGuy = guyOne;
+
+    // Usage of an object variable in a string context evaluations to a call
+    // to the toS() method on the object the variable points to, so here we
+    // are asking that object for its own address in order to show the
+    // ACTUAL value of the variable.
+    // readableId() provides a simplified (but not necessarily 1:1) reduction
+    // of the pointer for easier (human-readable) indentification of
+    // individual instances when debugging.
+    pln(#guyOne.pointer; readableId(guyOne));
+    pln(#guyTwo.pointer; readableId(guyTwo));
+    pln(#dupGuy.pointer; readableId(dupGuy));
+    
+    pln(#guyOne.num; #guyTwo.num; #dupGuy.num);
+
+    // Set field on the object that both `guyOne` and `dupGuy` point to
+    dupGuy.num = 22;
+
+    pln(#guyOne.num; #guyTwo.num; #dupGuy.num);
+
+    Test t();
+    t.state = 1;
+
+    AShape2D shape = APolyline2D();
+    
+    // fillColor() is final in AShape2D and can be called directly.
+    pln(shape.fillColor());
+    
+    if (shape as APolyline2D) {
+        // count() extend APolyline2D and type casting is necessary.
+        pln(#shape.count());
+    }
+
+    AShape2D shape = APolyline2D();
+    
+    if (shape in APolyline2D) {
+        pln("shape is a polyline!");
+        //pln(#shape.count()); // Would give compile error
+    }
+
+    int x = 1;
+    
+    switch(x) {
+      case 1: pln("one");
+      case 2: pln("two");
+      default: pln("other");
+    }
+
+    switch(x) {
+      case 1, 3, 5: {
+          pln("odd");
+      }
+        
+      case 2, 4, 6: {
+          pln("even");
+      }
+        
+      default: pln("other");
+    }
+
+    switch(x) {
+      case 0..9: pln("one digit");
+      case 10..99: pln("two digits");
+    }
+
+    str s = getStr();
+    
+    switch(s) {
+      case "SE": lang = "swedish";
+      case "FR": lang = "french";
+      default: ;
+    }
+
+    symbol sym;
+    
+    switch(sym) {
+      case #"cm.core": pkg = "core";
+      case #"cm.win": pkg = "win";
+      default: pkg = "fail";
+    }
+
+    PropExample ex();
+    pln(ex."height");
+    pln(ex.propData);
+
+    ModelSnapper[] snappers();
+    snappers << Car() << Bike() << Apple();
+    for (s in snappers) pln(#s.class; #s."tyreQty");
+*/
     pln("\n BMEval test finished");
-
-
-
 }
+
+
+/**
+ * Vehicle.
+ */
+
+/*
+public class Vehicle extends ModelSnapper : abstract {
+
+    // Constructor.
+     
+    public constructor() { this."tyreQty" = numberOfTyres(); }
+
+
+    // Number of tyres.
+    //extend public int numberOfTyres() : abstract { }
+}
+
+
+
+// Car.
+public class Car extends Vehicle {
+    
+    // Number of tyres.
+    public int numberOfTyres() {
+        return 4;
+    }
+}
+
+
+
+// Bike.
+public class Bike extends Vehicle {
+    
+    // Number of tyres.
+    public int numberOfTyres() {
+        return 2;
+    }
+}
+
+
+
+// Apple (unrelated to Vehicle).
+public class Apple extends ModelSnapper { }
+
+public class PropExample extends PropObj {
+
+    
+    // Constructor.
+    public constructor() {
+        this."height" = 5;
+    }
+}
+
+
+// Test class.
+public class Test : modify notice {
+    
+    // State.    
+    public int state;
+    
+    
+    // Modify noticed field.
+    public bool modifyNoticed : copy=null, stream=null, ignore modify notice;
+
+
+    // Constructor.
+    public constructor() { }
+
+
+    
+    // Modify notice method.
+    extend public void modifyNotice() {
+        pln("state changed");
+        modifyNoticed = true;
+    }
+}
+
+private int normalFunction(int a, str b) { return a; }
+
+public class ObjGuy {
+    public int num;
+    public constructor() {}
+}
+
+
+// Raw hooks list.
+private alias completeListHook = function (Part[] list, Space space):Part[];
+
+
+// Raw part hooks.
+private completeListHook{} completeListHooks : keep;
+
+private class TestClass1 {
+    public constructor() {
+    }
+    
+    extend public int foo() {
+        return 1;
+    }
+}
+
+private class TestClass2  extends TestClass1 {
+    public constructor() {
+    }
+    
+    public int foo() {
+        return 2;
+    }
+}
+
+private class TestClass3 extends TestClass2 {
+    public constructor() {
+    }
+    
+    public int foo() {
+        return TestClass2.foo(this);
+    }
+}
+
+// Append a complete part list hook.
+public void appendRawPartListHook(completeListHook hook) {
+    if (hook) {
+        if (!completeListHooks) init completeListHooks();
+        completeListHooks << hook;
+    }
+}
+
 
 public class AnimateCamera3D  {
         private bool animationEnable : public readable;
@@ -250,4 +511,6 @@ public class SubClass extends TestClass { }
     pln(cls.class);
     pln(cls in TestClass);
 }
+*/
+
 

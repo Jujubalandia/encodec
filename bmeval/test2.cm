@@ -1,0 +1,222 @@
+/** Configura CET Source Copyright Notice (CETSC)
+
+   This file contains Configura CM source code and is part of the
+   Configura CET Development Platform (CETDEV). Configura CM
+   is a programming language created by Configura Sverige AB.
+   Configura, Configura CET and Configura CM are trademarks of
+   Configura Sverige AB. Configura Sverige AB owns Configura CET,
+   Configura CM, and CETDEV.
+
+   Copyright (C) 2004 Configura Sverige AB, All rights reserved.
+
+   You can modify this source file under the terms of the Configura CET
+   Source Licence Agreement (CETSL) as published by Configura Sverige AB.
+
+   Configura Sverige AB has exclusive rights to all changes, modifications,
+   and corrections of this source file. Configura Sverige AB has exclusive
+   rights to any new source file containing material from this source file.
+   A new source file based on this source file or containing material from
+   this source file has to include this Configura CET Source Copyright Notice
+   in its full content. All changes, modifications, and corrections mentioned
+   above shall be reported to Configura Sverige AB within One Month from
+   the date that the modification occurred.
+
+   Configura CM is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the CETSL for more details.
+
+   You should have received a copy of the CETSL along with the CETDEV.
+   If not, write to Configura Sverige AB, Box 306, SE-581 02 Linköping, Sweden.
+   Tel +46 13377800, Fax +46 13377855,
+   Email: info@configura.com, www.configura.com
+
+   END OF CETSC
+*/
+
+package cm.encodec.bmeval;
+
+use cm: core, win;
+
+// Prop example.
+public class PropExample2 extends PropObj {
+
+    
+    // Constructor.
+    
+    public constructor() {
+        this."height" = 5;
+    }
+}
+
+
+// Vehicle.
+public class Vehicle2 extends ModelSnapper : abstract {
+
+    
+    // Constructor.
+    
+    public constructor() { this."tyreQty" = numberOfTyres(); }
+
+
+
+     // Number of tyres.
+     
+    extend public int numberOfTyres() : abstract { }
+}
+
+
+
+//  Car.
+ 
+public class Car2 extends Vehicle2 {
+    
+    // Number of tyres.
+    
+    public int numberOfTyres() {
+        return 4;
+    }
+}
+
+
+
+// Bike.
+ 
+public class Bike2 extends Vehicle2 {
+    
+    // Number of tyres.
+    
+    public int numberOfTyres() {
+        return 2;
+    }
+}
+
+
+
+// Apple (unrelated to Vehicle).
+
+public class Apple2 extends ModelSnapper { }
+
+public void testA(props: args) {
+    pln("testA");
+    for (k, v in args) pln(k);
+}
+
+public void testB(str a="a", props: args) {
+    pln("testB");
+    for (k, v in args) pln(k);
+}
+/* 
+public void initVessels() {
+    // Non-debug vessels
+    LightRedSnapperOutline("highlight", owner=this, active=true, tags={#candidate, #highlight});
+    LightRedSpaceVesselOutline("vesselHighlight", owner=this, active=true, tags={#candidate, #spaceVessel});
+    RedCross("cross", owner=this, tags={#noCandidate, #cross});
+
+    // Debug examples -- normally only one would be used
+    // Place one within the RemoverAnimationG2.initVessels() to test example
+
+    // Blue sphere always around owner.pos
+    VesselAroundPos("debug", owner=this, tags={#debug}, args=props{ownerPos=true, invalidAlways=true});
+
+    // Purple sphere around owner.pos
+    VesselAroundPos("debug", owner=this, tags={#debug}, args=props{ownerPos=true, c=purple});
+
+    // No sphere but axis with text at owner.pos
+    VesselAroundPos("debug", owner=this, tags={#debug}, args=props{ownerPos=true, axis=true, noSphere=true});
+
+    // Small red sphere at origin with axis at owner.pos with no text and larger axis radius,
+    // with the Z axis color as black
+    VesselAroundPos("debug", owner=this, tags={#debug},
+                    args=props{ownerPos=true, axis=true, noSphere=true, sphereAtOrigin=true,
+                        radius3D=3inch, radius2D=2inch, c=brightRed, hideText=true,
+                        axisRadius=80inch, zc=black});
+}
+*/
+{
+    ModelSnapper[] snappers();
+    snappers << Car2() << Bike2() << Apple2();
+    for (s in snappers) pln(#s.class; #s."tyreQty");
+    pln("BMEval test started 2");
+    PropExample2 ex();
+    pln(ex."height");
+    pln(ex.propData);
+
+    // Empty map -- props{..} always results in a str->Object map, no matter the contents.
+    str->Object args = props{};
+    
+    // Mixed type initialization.
+    args = props{a="a", b=1, c=false, d=12., e=Vessel("e")};
+    
+    // Output.
+    pln(args.get("a"));
+    pln(args.get("b"));
+    pln(args.get("c"));
+    pln(args.get("d"));
+    pln(args.get("e"));
+
+    // TestA
+    testA(); // empty -- args=null
+    testA(a="a", b=1, c=false);
+
+    // TestB
+    testB(); // empty -- args=null
+    testB(a="a"); // just 'a'
+    //testB(b="b"); // error, 'a' must be given first
+    testB("a", b="b", c=1);
+    testB(a="a", hello=Vessel("hello"));
+
+    // Initialization of map
+str->Object myArgs = props{a=true, b=false, c="c", d=1.};
+
+// Initialization of PropObj with args
+Vessel myVessel("testVessel", args=myArgs);
+
+// PropObj.is(..) -- propData
+// "a"
+/*
+myVessel.is("a") => true;
+myVessel.is("a", false) => false;
+myVessel.is("a", true) => true;
+myVessel.is("a", 2) => false;
+
+// "b"
+myVessel.is("b") => false; // Can only be false if b does not exist or the value is false
+myVessel.is("b", false) => true; // Can only be true if b does not exist or the value is false
+myVessel.is("b", true) => false;
+myVessel.is("b", 2.) => false;
+
+// "c"
+myVessel.is("c") => true;
+myVessel.is("c", "c") => true;
+myVessel.is("c", "a") => false;
+
+// "e"
+myVessel.is("e") => false;
+myVessel.is("e", false) => true;
+
+// str->Object.is(..) -- any str->Object map
+// "a"
+myArgs.is("a") => true;
+myArgs.is("a", false) => false;
+
+// "b"
+myArgs.is("b") => false;
+myArgs.is("b", false) => true;
+myArgs.is("b", true) => false;
+
+// "c"
+myArgs.is("c") => true;
+myArgs.is("c", "c") => true;
+myArgs.is("c", 34) => false;
+
+// "d"
+myArgs.is("d") => true;
+myArgs.is("d", 1) => false;
+myArgs.is("d", 1.) => true;
+
+// "g"
+myArgs.is("g") => false;
+myArgs.is("g", false) => true;
+*/
+}
