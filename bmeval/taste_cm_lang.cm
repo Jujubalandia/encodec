@@ -36,7 +36,7 @@
  
 package cm.encodec.bmeval;
 
-use cm: core;
+use cm: core, runtime;
 
 {
     pln("Hello, CM Language World!");
@@ -97,11 +97,280 @@ use cm: core;
 
     double area = calcularArea(5.0, 10.0);
     pln("Área do retângulo: " # area);
+
+    //CalculadoraBasica calc = new CalculadoraBasica();
+    //double resultado = calc.calcular(10.0, 5.0, "+");
+    //pln("Resultado da soma: " # resultado); 
+    //calc.resultado = resultado;
+    //str avaliacao = calc.avaliarResultado();
+    //pln("Avaliação do resultado: " # avaliacao);    
+
+    // int - 32 bits com sinal
+    int idade10 = 25;
+    int temperatura = -15;
+    int maxInt = 2147483647;    // Valor máximo
+    int minInt = -2147483648;   // Valor mínimo
+
+    // int8 - 8 bits com sinal  
+    int8 pequeno = 127;
+    int8 menor = -128;
+
+    // int16 - 16 bits com sinal
+    int16 medio = 32767;
+    int16 medioNeg = -32768;
+
+    // int64 - 64 bits com sinal
+    int64 grandeNumero = 9223372036854775807i64;
+    int64 negativo = -9223372036854775808i64;
+
+    // nat - 32 bits sem sinal (natural)
+    nat populacao = 42949695;
+    nat contador = 0;
+
+    // byte - 8 bits sem sinal
+    byte valor = 255;
+    byte inicio = 0;
+
+    // word - 16 bits sem sinal  
+    word endereco1 = 65535;
+
+        // float - precisão simples (32 bits)
+    float preco3 = 19.99f;
+    float temperatura1 = -273.15f;
+    float pi = 3.14159f;
+
+    // double - precisão dupla (64 bits)
+    double precisao1 = 3.141592653589793;
+    double calculo1 = 1.7976931348623157e+308;  // Valor máximo
+    double minimo1 = 4.9406564584124654e-324;   // Valor mínimo positivo
+
+    // char - caractere UTF-16 (16 bits)
+    char letra = 'A';
+    char unicode = 'ñ';
+    char emoji = '😀';
+    pln("Caractere: " # emoji);
+
+    // cchar - caractere ANSI C (8 bits)
+    //cchar simples = '1';
+    //cchar numero = '7';
+
+    // str8 - encoding UTF-8 variável
+    str internacional = "Hello 世界 🌍";
+    pln("String UTF-8: " # internacional);
+    str multilingual = "Bonjour, مرحبا, こんにちは";
+    pln("Multilingual String: " # multilingual);
+
+
+    // Declaração de arrays
+    int[] numeros = [10,5,6,4,34,67,89,33];        // Array fixo de 10 inteiros
+    //str[] nomes = str[5];           // Array fixo de 5 strings
+
+    // Inicialização com valores
+    int[] valores = [1, 2, 3, 4, 5];
+    str[] linguagens = ["CM", "Java", "C++"];
+    double[] coordenadas = [10.5, 20.3, 15.7];
+
+    // Acesso aos elementos
+    numeros[0] = 42;
+    pln("Primeiro número: " # numeros[0]);  // 42
+    str primeira = linguagens[0];       // "CM"
+    pln("Primeira linguagem: " # primeira);  // "CM"
+    int tamanho = valores.count;        // 5
+
+
+    // Array bidimensional (matriz)
+    //int[][] matriz = new int[3][4];     // 3 linhas, 4 colunas
+    //matriz[0][0] = 10;
+    //matriz[1][2] = 25;
+
+    // Matriz com inicialização
+    /*
+    double[][] pontos = [
+        [0.0, 0.0, 0.0],
+        [1.0, 1.0, 1.0],
+        [2.0, 2.0, 2.0]
+    ];
+    */
+
+    // Array tridimensional
+    //int[][][] cubo = new int[3][3][3];
+
+    // Listas dinâmicas (equivalente a ArrayList)
+    //int[] lista = int[]();              // Lista vazia
+    //lista.add(10);
+    //lista.add(20);
+    //lista.add(30);
+
+    // Manipulação de listas
+    //int primeiro = lista[0];            // 10
+    //lista.remove(1);                    // Remove elemento no índice 1
+    //int tamanho = lista.count;          // 2
+
+    // Sets (conjuntos)
+    //str{} cores = str{}();
+    //cores.add("vermelho");
+    //cores.add("azul");
+    //cores.add("verde");
+    //cores.add("azul");                  // Não será adicionado (duplicata)
+
+    //bool contemVerde = cores.contains("verde");  // true
+    /*
+    private enum status : field access {
+        inativo = 0;        // Valor padrão obrigatório
+        ativo = 1;
+        suspenso = 2;
+        erro = 3;
+    }
+    */
+
+    // Uso da enumeração
+    // status estadoAtual = status.ativo;
+    // pln("Status atual: " # estadoAtual);
+
+
+    // Exemplo de conversões explícitas
+    exemploConversoesExplicitas();
+
+    // Exemplo de limites de tipos
+    mostrarLimitesDetipos();
+
+
+
     pln("Tchau to Configura Magic!!!!");
 
 
 
 }
+
+
+
+
+
+/*
+public void exemploGerenciamentoNull() {
+    str? textoOpcional = null;          // Pode ser null
+    str textoObrigatorio = "Hello";     // Não pode ser null
+    
+    // Verificação segura de null
+    if (textoOpcional != null) {
+        pln("Texto: " # textoOpcional);
+    } else {
+        pln("Texto é null");
+    }
+    
+    // Operação segura com null
+    str resultado = textoOpcional?.toUpperCase() ?? "TEXTO PADRÃO";
+    pln("Resultado: " # resultado);
+}
+*/
+
+
+/* 
+
+public class Produto extends Object {
+    
+    // Campos privados
+    private str nome;
+    private double preco;
+    private int quantidadeEstoque;
+    private bool disponivel;
+    
+    // Construtor
+    public constructor(str nome, double preco) {
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidadeEstoque = 0;
+        this.disponivel = true;
+    }
+    
+    // Métodos públicos
+    public str obterNome() {
+        return this.nome;
+    }
+    
+    public void definirPreco(double novoPreco) {
+        if (novoPreco >= 0.0) {
+            this.preco = novoPreco;
+        }
+    }
+    
+    public double calcularValorTotal(int quantidade) {
+        return this.preco * quantidade;
+    }
+    
+    //extend bool isDisponivel() {
+    //    return this.disponivel and this.quantidadeEstoque > 0;
+    //}
+}
+
+*/
+
+
+/*
+public class ConfiguracaoSistema extends Object {
+    
+    // Constantes de classe
+    //private const str VERSAO = "3.1.0";
+    private const int MAX_CONEXOES = 100;
+    private const double PI = 3.141592653589793;
+    private const bool DEBUG_HABILITADO = true;
+    
+    // Constantes com tipos específicos
+    private const int64 TIMESTAMP_INICIO = 1640995200000i64;
+    private const float TOLERANCIA = 0.001f;
+    
+    public void mostrarConstantes() {
+        pln("Versão do sistema: " # VERSAO);
+        pln("Máximo de conexões: " # MAX_CONEXOES);
+        pln("Valor de PI: " # PI);
+        pln("Debug habilitado: " # DEBUG_HABILITADO);
+    }
+}
+*/
+
+public void mostrarLimitesDetipos() {
+    // Constantes de int
+    pln("int mínimo: " # minInt);               // -2147483648
+    pln("int máximo: " # maxInt);               // 2147483647
+    
+    // Constantes de byte
+    pln("byte mínimo: " # minByte);             // 0
+    pln("byte máximo: " # maxByte);             // 255
+    
+    // Constantes de double
+    pln("double mínimo: " # minDouble);         // -1.79769e+308
+    pln("double máximo: " # maxDouble);         // 1.79769e+308
+    
+    // Constantes de float
+    pln("float mínimo: " # minFloat);           // -3.40282e+038
+    pln("float máximo: " # maxFloat);           // 3.40282e+038
+}
+
+
+public void exemploConversoesExplicitas() {
+    // Conversões que podem causar perda de dados
+    double valorPreciso = 123.456;
+    int valorInteiro = valorPreciso.int;        // 123 (truncado)
+    
+    // Conversão entre tipos de diferentes tamanhos
+    int64 numeroGrande = 9876543210i64;
+    int numeroMenor = numeroGrande.int;         // Possível overflow
+    
+    // Conversão usando operador .:
+    float numeroFloat = 45.67f;
+    int numeroTruncado = numeroFloat.: int;     // 45
+    
+    // Verificação de conversão bem-sucedida
+    Object objeto = Double(42.5);
+    //int? resultado = objeto.int();                // null se falhar
+    
+    if (objeto != null) {
+        pln("Conversão bem-sucedida: " # objeto);
+    } else {
+        pln("Conversão falhou");
+    }
+}
+
 
 /**
  * Calcula a área de um retângulo.
@@ -113,5 +382,54 @@ use cm: core;
 public double calcularArea(double largura, double altura) {
     return largura * altura;
 }
+
+
+/**
+ * Calculadora simples demonstrando sintaxe básica
+ */
+public class CalculadoraBasica extends Object {
+    
+    private str operacao;
+    private double resultado;
+    
+    public constructor() {
+        this.operacao = "";
+        this.resultado = 0.0;
+    }
+    
+    /**
+     * Executa operação aritmética básica
+   
+    public double calcular(double a, double b, str op) {
+        switch (op) {
+            case "+": return a + b;
+            case "-": return a - b;
+            case "*": return a * b;
+            case "/": {
+                if (b != 0.0) {
+                    return a / b;
+                } else {
+                    pln("Erro: Divisão por zero!");
+                    return 0.0;
+                }
+            }
+            default: {
+                pln("Operação inválida: " # op);
+                return 0.0;
+            }
+        }
+    }
+
+      */
+    /**
+     * Demonstra uso de expressões condicionais
+     
+    public str avaliarResultado(double resultado) {
+        return (this.resultado >= 0) ? "Positivo" : "Negativo";
+    }
+    */
+
+}
+
 
 
