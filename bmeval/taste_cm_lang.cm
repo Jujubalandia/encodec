@@ -55,10 +55,63 @@ use cm: core;
         pln("Maior de idade");
     }
 
-    
-    pln("Tchau to Configura Magic!");
+    // Expressões aritméticas
+    //int resultado = (a + b) * c;
+    //double media = (nota1 + nota2 + nota3) / 3.0;
+    //pln("Resultado: " # resultado);
+    //pln("Média: " # media);
+
+    // Expressões lógicas
+    //bool isValid = (idade >= 0) && (idade <= 120);
+    //pln("Idade válida: " # isValid);
+
+    str nome = "João";
+    // Expressões de concatenação de strings
+    str saudacao = "Olá, " # nome # "!";
+    pln(saudacao);
+    // Expressões condicionais (ternário)
+    double nota = 8.5;
+    str status = (nota >= 7.0) ? "Aprovado" : "Reprovado";
+    pln("Status: " # status);
+
+    // Tipos numéricos
+    int idade2 = 25;                    // Inteiro de 32 bits
+    //long populacao = 8000000000L;      // Inteiro de 64 bits
+    float prec2 = 19.99f;              // Ponto flutuante de precisão simples
+    double precisao = 3.14159265359;   // Ponto flutuante de precisão dupla
+
+    // Tipos textuais
+    char inicial = 'J';                // Caractere único
+    str nome2 = "Configuration Magic";   // String de tamanho variável
+
+    // Tipo lógico
+    bool ativo = true;                 // Verdadeiro ou falso
+
+    // Arrays
+    //int[] numeros = int[]();
+    //str[] nomes = new str[10];
+
+    // Objetos
+    //Object obj = Object();
+    //Point3D ponto = Point3D(1.0, 2.0, 3.0);
+
+    double area = calcularArea(5.0, 10.0);
+    pln("Área do retângulo: " # area);
+    pln("Tchau to Configura Magic!!!!");
 
 
 
 }
+
+/**
+ * Calcula a área de um retângulo.
+ * 
+ * @param largura A largura do retângulo
+ * @param altura A altura do retângulo
+ * @return A área calculada
+ */
+public double calcularArea(double largura, double altura) {
+    return largura * altura;
+}
+
 
