@@ -171,24 +171,24 @@ public void initVessels() {
     testB(a="a", hello=Vessel("hello"));
 
     // Initialization of map
-str->Object myArgs = props{a=true, b=false, c="c", d=1.};
+    str->Object myArgs = props{a=true, b=false, c="c", d=1.};
 
-// Initialization of PropObj with args
-Vessel myVessel("testVessel", args=myArgs);
+    // Initialization of PropObj with args
+    Vessel myVessel("testVessel", args=myArgs);
 
-StrBuf buf;
-pln(#buf);
+    StrBuf buf;
+    pln(#buf);
 
-buf = new StrBuf("A");
-pln(#buf);
+    buf = new StrBuf("A");
+    pln(#buf);
 
-buf = StrBuf("B");
-pln(#buf);
+    buf = StrBuf("B");
+    pln(#buf);
 
-StrBuf foo("C");
-pln(#foo);
+    StrBuf foo("C");
+    pln(#foo);
 
-ptrace(); // displays trace location.
+    ptrace(); // displays trace location.
 
     /**
      * Short stack dump.
@@ -208,16 +208,16 @@ pln(#microTime);
     // some code here...
 
 int i;
-ptime(spnn("Timing test ", i, " takes")) { sleep(500); int a = 3; }
+ptime(spnn("Timing test ", i, " takes")) { sleep(10); int a = 3; }
 pln(#a);
 i++;
-ptime(spnn("Timing test ", i, " takes")) { sleep(1000); int b = 4; }
+ptime(spnn("Timing test ", i, " takes")) { sleep(25); int b = 4; }
 pln(#a; #b);
 
 pln(us(microTime - t1000));
 
 profiler.stop();
-pln(profiler.report(20));
+//pln(profiler.report(20));
 
 
 
